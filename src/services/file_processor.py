@@ -16,6 +16,13 @@ class FileProcessor:
         self.max_file_size = max_file_size
         self.logger = get_logger("FileProcessor")
 
+    def generate_session_id(self) -> str:
+        """
+        Generate a unique session ID for tracking temporary file access.
+        """
+        import uuid
+        return str(uuid.uuid4())
+
     def process_upload(self, file_content: bytes, original_filename: str) -> Tuple[Optional[Resume], Optional[str]]:
         """
         Process an uploaded file, validate it, store it temporarily, and return a Resume entity.
@@ -28,7 +35,7 @@ class FileProcessor:
             Tuple of (Resume entity if successful, error message if failed)
         """
         # Generate a session ID for this upload
-        session_id = generate_session_id()
+        session_id = self.generate_session_id()
 
         # Log the file upload
         file_size = len(file_content)
@@ -42,16 +49,21 @@ class FileProcessor:
             self.logger.warning(f"File upload failed - unsupported type: {original_filename}, session: {session_id}")
             return None, error_msg
 
-        # Validate file size before creating temporary file
+        # Calculate file size before creating temporary file
+        file_size = len(file_content)
         if file_size > self.max_file_size:
             size_mb = self.max_file_size / (1024 * 1024)
             error_msg = f"File size {file_size} bytes exceeds maximum allowed size of {size_mb}MB"
             self.logger.warning(f"File upload failed - too large: {original_filename}, size: {file_size} bytes, session: {session_id}")
             return None, error_msg
 
-        # Create temporary file
+        # Create temporary file using Python's tempfile module as required for cloud compatibility
         try:
-            temp_file_path = create_encrypted_temp_file(file_content, file_extension)
+            import tempfile
+            # Create a temporary file with the correct extension
+            with tempfile.NamedTemporaryFile(delete=False, suffix=file_extension) as tmp:
+                tmp.write(file_content)
+                temp_file_path = tmp.name
             self.logger.debug(f"Created temporary file: {temp_file_path} for session: {session_id}")
         except Exception as e:
             error_msg = f"Failed to create temporary file: {str(e)}"

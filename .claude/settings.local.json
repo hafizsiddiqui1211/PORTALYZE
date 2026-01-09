@@ -97,7 +97,8 @@
       "Bash(git rev-parse --is-inside-work-tree)",
       "Bash(git rev-parse --abbrev-ref HEAD)",
       "Bash(git checkout -b fix-profile-analyzer-keyword-suggestions)",
-      "Bash(git add .)"
+      "Bash(git add .)",
+      "Bash(git commit -m \"feat\\(profile-analyzer\\): fix keyword suggestions and add minimum relevance filtering\n\n- Add extract method as alias to extract_profile in all extractor classes \\(LinkedIn, GitHub, Portfolio\\)\n- Implement minimum relevance score threshold \\(0.2\\) for keyword suggestions\n- Enhance LinkedIn extractor to handle privacy/accessibility issues gracefully\n- Update UI components to properly display relevant keyword suggestions\n- Add nest_asyncio dependency to requirements.txt to resolve import errors in role recommendations\")"
     ]
   }
 }
