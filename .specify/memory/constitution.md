@@ -1,55 +1,32 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Smart Resume & Portfolio Analyzer Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### Accuracy
+All resume/portfolio insights must reflect the actual content and ATS standards. ATS score computation must follow industry-standard keyword matching and role-specific evaluation.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### Actionable Feedback
+Suggestions must be practical, specific, and measurable (e.g., 'Add quantifiable metrics to your projects'). Feedback must be actionable and clearly categorized (strengths, weaknesses, suggested improvements).
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### User-Centric Clarity
+Feedback must be presented in a concise, visually structured manner suitable for non-technical users. Dashboard is clean, intuitive, and color-coded by sections.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### AI-Assisted Intelligence
+Recommendations must leverage AI reasoning, keyword extraction, and pattern analysis. Job role suggestions must align with the candidate's experience, skills, and industry selection.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### Data Privacy
+All uploaded files and profile data must be securely handled; no permanent storage without user consent. Data privacy ensured with optional user history storage.
 
-### [PRINCIPLE_6_NAME]
+### Performance
+Analysis for a single resume must complete within 10–15 seconds. Tech stack compliance: Streamlit frontend, Python backend, OpenAI Agents SDK/GPT for AI analysis, SQL for data storage.
 
+## Key Standards
+Resume/portfolio parsing must extract text reliably from PDF/DOCX/LinkedIn/GitHub. Report export must support PDF generation of analysis. Recommendations for content, formatting, and portfolio improvements must be context-aware. Optional AI-generated bio must be personalized, concise, and relevant to the candidate's profile.
 
-[PRINCIPLE__DESCRIPTION]
-
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
-
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Development Workflow
+Phase-wise delivery: MVP must have ATS score correctly calculated and justified. Optional AI bio must be coherent, professional, and enhance candidate profile.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+All implementations must comply with these principles. Success criteria include: job role recommendations are relevant and aligned with skills/experience, and optional AI bio is coherent, professional, and enhances candidate profile.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-12-28 | **Last Amended**: 2025-12-28

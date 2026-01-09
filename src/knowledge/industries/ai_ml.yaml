@@ -1,0 +1,119 @@
+# AI/ML Role Archetypes
+
+archetypes:
+  - title: "Machine Learning Engineer"
+    industry: "AI/ML"
+    description: "Designs, builds, and deploys machine learning models and systems"
+    required_skills:
+      - "Machine learning algorithms"
+      - "Python programming"
+      - "Data preprocessing"
+      - "Model evaluation"
+    preferred_skills:
+      - "Deep learning frameworks"
+      - "MLOps tools"
+      - "Cloud ML platforms"
+      - "Statistical analysis"
+    technologies:
+      - "TensorFlow"
+      - "PyTorch"
+      - "Scikit-learn"
+      - "Pandas"
+      - "NumPy"
+    responsibilities:
+      - "Develop ML models for business problems"
+      - "Optimize model performance and accuracy"
+      - "Deploy models to production"
+      - "Monitor model performance"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Implement ML models", "Data preprocessing", "Basic model evaluation"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Design ML systems", "Model optimization", "MLOps implementation"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["ML architecture", "Strategic ML initiatives", "Team leadership"]
+    role_signals:
+      technical_depth: "Advanced ML algorithms and systems"
+      innovation: "Novel applications and improvements"
+      business_impact: "Measurable outcomes from ML solutions"
+
+  - title: "AI Application Developer"
+    industry: "AI/ML"
+    description: "Builds applications that integrate artificial intelligence capabilities"
+    required_skills:
+      - "AI/ML integration"
+      - "API development"
+      - "Application architecture"
+      - "AI model deployment"
+    preferred_skills:
+      - "Large language models"
+      - "Computer vision"
+      - "Natural language processing"
+      - "AI platform services"
+    technologies:
+      - "Python"
+      - "JavaScript"
+      - "OpenAI API"
+      - "Hugging Face"
+      - "Docker"
+    responsibilities:
+      - "Integrate AI models into applications"
+      - "Develop AI-powered features"
+      - "Optimize AI API usage"
+      - "Ensure AI system reliability"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Implement AI features", "API integration", "Basic testing"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Design AI integrations", "Performance optimization", "Security considerations"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["AI architecture", "Strategic AI implementation", "Cross-team coordination"]
+    role_signals:
+      technical_depth: "Advanced AI system design"
+      user_experience: "Seamless AI integration"
+      scalability: "Efficient AI resource utilization"
+
+  - title: "Data Scientist"
+    industry: "AI/ML"
+    description: "Analyzes complex data to extract insights and build predictive models"
+    required_skills:
+      - "Statistical analysis"
+      - "Machine learning"
+      - "Data visualization"
+      - "Hypothesis testing"
+    preferred_skills:
+      - "Advanced statistics"
+      - "Deep learning"
+      - "Big data tools"
+      - "Business acumen"
+    technologies:
+      - "Python"
+      - "R"
+      - "SQL"
+      - "Jupyter"
+      - "Tableau"
+    responsibilities:
+      - "Conduct statistical analysis"
+      - "Build predictive models"
+      - "Create data visualizations"
+      - "Communicate insights"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Data cleaning", "Basic analysis", "Simple models"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Complex analysis", "Advanced modeling", "Stakeholder communication"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["Strategic analysis", "Team leadership", "Business strategy"]
+    role_signals:
+      analytical_depth: "Complex problem solving"
+      business_acumen: "Strategic insight generation"
+      communication: "Effective insight presentation"

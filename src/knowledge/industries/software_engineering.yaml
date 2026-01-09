@@ -1,0 +1,157 @@
+# Software Engineering Role Archetypes
+
+archetypes:
+  - title: "Software Engineer"
+    industry: "Software Engineering"
+    description: "Develops, tests, and maintains software applications"
+    required_skills:
+      - "Programming fundamentals"
+      - "Software design patterns"
+      - "Version control"
+      - "Testing principles"
+    preferred_skills:
+      - "System design"
+      - "Performance optimization"
+      - "Security best practices"
+      - "CI/CD pipelines"
+    technologies:
+      - "Python"
+      - "JavaScript"
+      - "Java"
+      - "C#"
+      - "Git"
+    responsibilities:
+      - "Write clean, maintainable code"
+      - "Collaborate with team members"
+      - "Participate in code reviews"
+      - "Fix bugs and optimize performance"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Implement features", "Fix bugs", "Write unit tests"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Design components", "Lead small projects", "Mentor junior developers"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["System architecture", "Technical leadership", "Strategic planning"]
+    role_signals:
+      technical_depth: "Complex problem solving"
+      collaboration: "Team work and communication"
+      innovation: "New solutions and improvements"
+
+  - title: "Frontend Developer"
+    industry: "Software Engineering"
+    description: "Builds user interfaces and experiences for web applications"
+    required_skills:
+      - "HTML/CSS"
+      - "JavaScript/TypeScript"
+      - "UI/UX principles"
+      - "Responsive design"
+    preferred_skills:
+      - "React/Vue/Angular"
+      - "Performance optimization"
+      - "Accessibility"
+      - "Cross-browser compatibility"
+    technologies:
+      - "React"
+      - "Vue.js"
+      - "Angular"
+      - "CSS frameworks"
+      - "Webpack"
+    responsibilities:
+      - "Implement user interfaces"
+      - "Ensure responsive design"
+      - "Optimize frontend performance"
+      - "Collaborate with designers"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Implement UI components", "Basic styling", "Simple interactions"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Complex UI systems", "Performance optimization", "Component architecture"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["Frontend architecture", "Team leadership", "Strategic decisions"]
+    role_signals:
+      user_experience: "Intuitive interface design"
+      performance: "Fast, responsive applications"
+      innovation: "Modern frontend solutions"
+
+  - title: "Backend Developer"
+    industry: "Software Engineering"
+    description: "Develops server-side logic, databases, and application integration"
+    required_skills:
+      - "Server-side programming"
+      - "Database design"
+      - "API development"
+      - "Security principles"
+    preferred_skills:
+      - "System architecture"
+      - "Microservices"
+      - "Caching strategies"
+      - "Message queues"
+    technologies:
+      - "Node.js"
+      - "Python frameworks"
+      - "SQL/NoSQL databases"
+      - "RESTful APIs"
+      - "Docker"
+    responsibilities:
+      - "Design and implement APIs"
+      - "Optimize database performance"
+      - "Ensure system security"
+      - "Scale applications"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Implement API endpoints", "Basic database queries", "Simple integrations"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Design API architecture", "Database optimization", "System integration"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["Backend architecture", "System scalability", "Technical strategy"]
+    role_signals:
+      system_design: "Scalable, maintainable systems"
+      performance: "Efficient, reliable services"
+      security: "Robust security implementation"
+
+  - title: "Full Stack Developer"
+    industry: "Software Engineering"
+    description: "Develops both frontend and backend components of web applications"
+    required_skills:
+      - "Frontend development"
+      - "Backend development"
+      - "Database management"
+      - "DevOps basics"
+    preferred_skills:
+      - "System integration"
+      - "Performance optimization"
+      - "End-to-end testing"
+      - "Deployment automation"
+    technologies:
+      - "Full stack frameworks"
+      - "Database systems"
+      - "Cloud platforms"
+      - "Testing tools"
+    responsibilities:
+      - "Develop complete applications"
+      - "Integrate frontend and backend"
+      - "Optimize application performance"
+      - "Manage deployment processes"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Implement basic full stack features", "Simple integrations", "Basic testing"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Complex full stack applications", "System optimization", "Integration architecture"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["Full stack architecture", "Cross-team coordination", "Technical leadership"]
+    role_signals:
+      versatility: "Full application lifecycle management"
+      integration: "Seamless frontend-backend integration"
+      efficiency: "Optimized full stack solutions"

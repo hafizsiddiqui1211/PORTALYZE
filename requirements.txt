@@ -1,0 +1,22 @@
+# Core dependencies for Resume & Profile Analyzer
+streamlit
+PyMuPDF
+python-docx
+reportlab
+pytest
+google-generativeai
+beautifulsoup4
+httpx
+lxml
+PyGithub
+tenacity
+validators
+pydantic
+pyyaml
+faker
+plotly
+pandas
+numpy
+Pillow
+pytesseract
+nest_asyncio

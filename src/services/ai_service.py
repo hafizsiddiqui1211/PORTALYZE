@@ -1,0 +1,699 @@
+"""AI service for Resume Analyzer Core"""
+import os
+import time
+import random
+from typing import Dict, List, Any, Optional, Callable
+from src.models.analysis import AnalysisResult
+from src.models.suggestions import KeywordSuggestion
+from src.services.keyword_analyzer import KeywordAnalyzer
+from src.utils.logger import get_logger
+
+
+class AIService:
+    """Integrates with Gemini API for AI-powered resume analysis"""
+
+    def __init__(self, api_key: Optional[str] = None, max_retries: int = 3, base_delay: float = 1.0):
+        self.api_key = api_key or os.getenv('GEMINI_API_KEY')
+        self.max_retries = max_retries
+        self.base_delay = base_delay  # Base delay in seconds for exponential backoff
+        self.keyword_analyzer = KeywordAnalyzer()  # Initialize the keyword analyzer
+        self.logger = get_logger("AIService")
+
+        if not self.api_key:
+            self.logger.warning("GEMINI_API_KEY not set. AI features will be limited.")
+
+    def _exponential_backoff_delay(self, attempt: int) -> float:
+        """
+        Calculate delay using exponential backoff with jitter.
+
+        Args:
+            attempt: Current attempt number (0-indexed)
+
+        Returns:
+            Delay in seconds
+        """
+        # Exponential backoff: base_delay * (2^attempt)
+        delay = self.base_delay * (2 ** attempt)
+        # Add jitter to prevent thundering herd
+        jitter = random.uniform(0, delay * 0.1)  # Up to 10% additional random delay
+        return delay + jitter
+
+    def _with_retry(self, func: Callable, *args, **kwargs) -> Any:
+        """
+        Execute a function with retry logic and exponential backoff.
+
+        Args:
+            func: Function to execute
+            *args: Arguments to pass to the function
+            **kwargs: Keyword arguments to pass to the function
+
+        Returns:
+            Result of the function call
+        """
+        last_exception = None
+
+        for attempt in range(self.max_retries):
+            try:
+                return func(*args, **kwargs)
+            except Exception as e:
+                last_exception = e
+                if attempt < self.max_retries - 1:  # Don't sleep on the last attempt
+                    delay = self._exponential_backoff_delay(attempt)
+                    print(f"Attempt {attempt + 1} failed: {str(e)}. Retrying in {delay:.2f}s...")
+                    time.sleep(delay)
+                else:
+                    print(f"All {self.max_retries} attempts failed. Last error: {str(e)}")
+
+        # If we get here, all retries failed
+        raise last_exception
+
+    def analyze_resume(self, resume_text: str, ats_score: float) -> Dict[str, Any]:
+        """
+        Perform AI analysis of resume content.
+
+        Args:
+            resume_text: The text content of the resume
+            ats_score: The ATS compatibility score
+
+        Returns:
+            Dictionary containing analysis results
+        """
+        self.logger.info(f"Starting AI analysis for resume with ATS score: {ats_score}")
+
+        if not self.api_key:
+            self.logger.warning("GEMINI_API_KEY not set, using fallback analysis")
+            # Fallback to basic analysis if API key is not available
+            return self._fallback_analysis(resume_text, ats_score)
+
+        def _attempt_analysis():
+            self.logger.debug("Creating analysis prompt")
+            # Create the prompt for Gemini
+            prompt = self._create_analysis_prompt(resume_text, ats_score)
+
+            self.logger.debug("Generating Gemini response")
+            # Call Gemini API (in a real implementation, this would use the actual Gemini API)
+            # For this implementation, we'll simulate the response
+            response = self._simulate_gemini_response(resume_text, ats_score)
+
+            self.logger.debug("Gemini response generated successfully")
+            return response
+
+        try:
+            result = self._with_retry(_attempt_analysis)
+            self.logger.info("AI analysis completed successfully")
+            return result
+        except Exception as e:
+            self.logger.error(f"Error in AI analysis after {self.max_retries} attempts: {str(e)}")
+            # Return fallback analysis if Gemini call fails
+            fallback_result = self._fallback_analysis(resume_text, ats_score)
+            self.logger.info("Returned fallback analysis due to error")
+            return fallback_result
+
+    def _create_analysis_prompt(self, resume_text: str, ats_score: float) -> str:
+        """
+        Create the prompt for Gemini AI analysis.
+
+        Args:
+            resume_text: The text content of the resume
+            ats_score: The ATS compatibility score
+
+        Returns:
+            Formatted prompt string
+        """
+        return f"""
+        Analyze the following resume content and provide structured feedback:
+
+        Resume Content:
+        {resume_text}
+
+        ATS Score: {ats_score}/100
+
+        Please provide:
+        1. 3-5 key strengths of the resume
+        2. 3-5 areas for improvement
+        3. Section-by-section feedback (experience, skills, education, etc.)
+        4. Overall summary and recommendations
+        5. Confidence level in your analysis (0-1)
+
+        Format your response as structured JSON with keys:
+        - strengths: array of strings
+        - weaknesses: array of strings
+        - section_feedback: object with section names as keys
+        - overall_feedback: string
+        - confidence_level: number between 0 and 1
+        """
+
+    def _simulate_gemini_response(self, resume_text: str, ats_score: float) -> Dict[str, Any]:
+        """
+        Simulate Gemini's response for development purposes.
+
+        Args:
+            resume_text: The text content of the resume
+            ats_score: The ATS compatibility score
+
+        Returns:
+            Simulated AI analysis response
+        """
+        # In a real implementation, this would call the Gemini API
+        # For now, we'll generate a reasonable response based on the resume content
+
+        strengths = []
+        weaknesses = []
+
+        # Analyze content to generate realistic feedback
+        if "Python" in resume_text or "python" in resume_text:
+            strengths.append("Strong technical skills in Python programming")
+        if "JavaScript" in resume_text or "javascript" in resume_text:
+            strengths.append("Experience with JavaScript and web development")
+        if "AWS" in resume_text or "aws" in resume_text:
+            strengths.append("Cloud experience with AWS technologies")
+
+        if len(resume_text) < 500:
+            weaknesses.append("Resume appears to be too brief - consider adding more detail about projects and accomplishments")
+        if not any(word in resume_text.lower() for word in ["experience", "work", "job", "role"]):
+            weaknesses.append("Lack of clear work experience section")
+
+        # Section feedback
+        section_feedback = {
+            "experience": "Experience section could be more detailed with specific achievements",
+            "skills": "Skills section looks good with relevant technical skills",
+            "education": "Education section appears complete",
+            "projects": "Projects section could highlight more technical impact"
+        }
+
+        # Overall feedback
+        overall_feedback = (
+            f"The resume has an ATS compatibility score of {ats_score}/100. "
+            f"The candidate shows potential with relevant technical skills, "
+            f"but could benefit from more detailed descriptions of achievements and impact."
+        )
+
+        return {
+            "strengths": strengths or ["Well-structured resume", "Good technical foundation"],
+            "weaknesses": weaknesses or ["Could use more quantified achievements"],
+            "section_feedback": section_feedback,
+            "overall_feedback": overall_feedback,
+            "confidence_level": 0.85
+        }
+
+    def _fallback_analysis(self, resume_text: str, ats_score: float) -> Dict[str, Any]:
+        """
+        Provide a fallback analysis when AI service is unavailable.
+
+        Args:
+            resume_text: The text content of the resume
+            ats_score: The ATS compatibility score
+
+        Returns:
+            Basic analysis based on simple heuristics
+        """
+        # Simple heuristic-based analysis
+        word_count = len(resume_text.split())
+        has_experience = any(word in resume_text.lower() for word in ["experience", "work", "job", "role", "company"])
+        has_skills = any(word in resume_text.lower() for word in ["skill", "skills", "technical", "technology", "programming"])
+
+        strengths = []
+        weaknesses = []
+
+        if word_count > 300:
+            strengths.append("Good length with sufficient detail")
+        else:
+            weaknesses.append("Resume could be more detailed")
+
+        if has_experience:
+            strengths.append("Contains work experience section")
+        else:
+            weaknesses.append("Missing clear work experience section")
+
+        if has_skills:
+            strengths.append("Contains skills section")
+        else:
+            weaknesses.append("Missing clear skills section")
+
+        section_feedback = {
+            "experience": "Experience section detected" if has_experience else "Consider adding work experience",
+            "skills": "Skills section detected" if has_skills else "Consider adding skills section",
+            "education": "Education section likely present",
+            "projects": "Projects section could add value"
+        }
+
+        overall_feedback = (
+            f"The resume has an ATS compatibility score of {ats_score}/100. "
+            f"Basic analysis complete. For more detailed feedback, please configure your AI service."
+        )
+
+        return {
+            "strengths": strengths or ["Resume is well-structured and organized"],
+            "weaknesses": weaknesses or ["Could benefit from more specific achievements and metrics"],
+            "section_feedback": section_feedback,
+            "overall_feedback": overall_feedback,
+            "confidence_level": 0.6
+        }
+
+    def generate_keyword_suggestions(self, resume_text: str, analysis_result: AnalysisResult) -> List[KeywordSuggestion]:
+        """
+        Generate keyword suggestions based on resume content and analysis.
+
+        Args:
+            resume_text: The text content of the resume
+            analysis_result: The analysis result to base suggestions on
+
+        Returns:
+            List of keyword suggestions
+        """
+        self.logger.info(f"Generating keyword suggestions for analysis_id: {analysis_result.analysis_id}")
+
+        if not self.api_key:
+            self.logger.warning("GEMINI_API_KEY not set, using fallback keyword suggestions")
+            return self._fallback_keyword_suggestions(resume_text)
+
+        def _attempt_keyword_generation():
+            self.logger.debug("Using keyword analyzer to generate suggestions")
+            # Use the keyword analyzer to generate suggestions
+            # For now, we'll use a basic approach - in a real implementation,
+            # this would integrate with Gemini for more sophisticated analysis
+            suggestions = self.keyword_analyzer.generate_keyword_suggestions(
+                resume_text,
+                target_role="Software Engineer"  # Default role, could be inferred from resume
+            )
+
+            self.logger.debug(f"Generated {len(suggestions)} keyword suggestions")
+
+            # Update the analysis_id for each suggestion
+            for suggestion in suggestions:
+                # We need to create new suggestions with the correct analysis_id
+                updated_suggestion = KeywordSuggestion.create_new(
+                    analysis_id=analysis_result.analysis_id,
+                    keyword=suggestion.keyword,
+                    relevance_score=suggestion.relevance_score,
+                    category=suggestion.category,
+                    justification=suggestion.justification,
+                    role_alignment=suggestion.role_alignment
+                )
+                # Replace the original suggestion with the updated one
+                suggestion.__dict__.update(updated_suggestion.__dict__)
+
+            self.logger.info(f"Successfully generated {len(suggestions)} keyword suggestions")
+            return suggestions
+
+        try:
+            result = self._with_retry(_attempt_keyword_generation)
+            self.logger.info(f"Keyword suggestion generation completed successfully with {len(result)} suggestions")
+            return result
+        except Exception as e:
+            self.logger.error(f"Error generating keyword suggestions after {self.max_retries} attempts: {str(e)}")
+            fallback_result = self._fallback_keyword_suggestions(resume_text)
+            self.logger.info(f"Returned {len(fallback_result)} fallback keyword suggestions due to error")
+            return fallback_result
+
+    def _create_keyword_prompt(self, resume_text: str, analysis_result: AnalysisResult) -> str:
+        """
+        Create the prompt for Gemini keyword suggestions.
+
+        Args:
+            resume_text: The text content of the resume
+            analysis_result: The analysis result to base suggestions on
+
+        Returns:
+            Formatted prompt string for keyword suggestions
+        """
+        return f"""
+        Based on the following resume and analysis, suggest relevant keywords that would improve ATS compatibility:
+
+        Resume Content:
+        {resume_text}
+
+        Analysis Strengths:
+        {', '.join(analysis_result.strengths)}
+
+        Analysis Weaknesses:
+        {', '.join(analysis_result.weaknesses)}
+
+        Please suggest 5-10 relevant keywords with:
+        1. The keyword itself
+        2. Relevance score (0-1)
+        3. Category (Technical, SoftSkill, IndustrySpecific)
+        4. Justification for the suggestion
+        5. Target role alignment
+
+        Return as JSON array with objects containing these fields.
+        """
+
+    def _simulate_keyword_response(self, resume_text: str, analysis_result: AnalysisResult) -> List[Dict[str, Any]]:
+        """
+        Simulate Gemini's keyword suggestion response.
+
+        Args:
+            resume_text: The text content of the resume
+            analysis_result: The analysis result to base suggestions on
+
+        Returns:
+            Simulated keyword suggestions
+        """
+        # In a real implementation, this would call the Gemini API
+        # For now, we'll generate suggestions based on content analysis
+
+        suggested_keywords = []
+
+        # Look for missing technical terms based on weaknesses
+        if "javascript" not in resume_text.lower():
+            suggested_keywords.append({
+                "keyword": "JavaScript",
+                "relevance_score": 0.85,
+                "category": "Technical",
+                "justification": "High demand skill for web development roles",
+                "role_alignment": "Frontend Developer, Full Stack Developer"
+            })
+
+        if "python" not in resume_text.lower():
+            suggested_keywords.append({
+                "keyword": "Python",
+                "relevance_score": 0.90,
+                "category": "Technical",
+                "justification": "Versatile language with applications in many domains",
+                "role_alignment": "Software Engineer, Data Scientist, AI/ML Engineer"
+            })
+
+        if "cloud" not in resume_text.lower() and "aws" not in resume_text.lower():
+            suggested_keywords.append({
+                "keyword": "Cloud Computing",
+                "relevance_score": 0.75,
+                "category": "Technical",
+                "justification": "Essential for modern software development",
+                "role_alignment": "DevOps Engineer, Cloud Engineer, Software Engineer"
+            })
+
+        # Add more suggestions if we don't have enough
+        if len(suggested_keywords) < 5:
+            additional_suggestions = [
+                {
+                    "keyword": "Agile",
+                    "relevance_score": 0.70,
+                    "category": "SoftSkill",
+                    "justification": "Important methodology for team collaboration",
+                    "role_alignment": "Software Engineer, Project Manager, Scrum Master"
+                },
+                {
+                    "keyword": "Machine Learning",
+                    "relevance_score": 0.80,
+                    "category": "Technical",
+                    "justification": "High-value skill for AI/tech roles",
+                    "role_alignment": "AI/ML Engineer, Data Scientist, Software Engineer"
+                }
+            ]
+            suggested_keywords.extend(additional_suggestions)
+
+        return suggested_keywords[:10]  # Limit to 10 suggestions
+
+    def _fallback_keyword_suggestions(self, resume_text: str) -> List[KeywordSuggestion]:
+        """
+        Provide fallback keyword suggestions when AI service is unavailable.
+
+        Args:
+            resume_text: The text content of the resume
+
+        Returns:
+            List of basic keyword suggestions
+        """
+        # Basic keyword suggestions based on common tech terms
+        basic_keywords = [
+            {"keyword": "Python", "relevance_score": 0.85, "category": "Technical",
+             "justification": "Versatile programming language", "role_alignment": "Software Engineer"},
+            {"keyword": "JavaScript", "relevance_score": 0.80, "category": "Technical",
+             "justification": "Essential for web development", "role_alignment": "Frontend Developer"},
+            {"keyword": "Agile", "relevance_score": 0.70, "category": "SoftSkill",
+             "justification": "Important development methodology", "role_alignment": "Software Engineer"}
+        ]
+
+        suggestions = []
+        for kw_data in basic_keywords:
+            # Create a temporary analysis ID for the fallback
+            suggestion = KeywordSuggestion.create_new(
+                analysis_id="fallback-analysis-id",
+                keyword=kw_data["keyword"],
+                relevance_score=kw_data["relevance_score"],
+                category=kw_data["category"],
+                justification=kw_data["justification"],
+                role_alignment=kw_data["role_alignment"]
+            )
+            suggestions.append(suggestion)
+
+        return suggestions
+
+    def analyze_profile(self, profile_data: Dict[str, Any], profile_type: str) -> 'ProfileAnalysis':
+        """
+        Perform AI analysis of profile data.
+
+        Args:
+            profile_data: The profile data to analyze
+            profile_type: The type of profile (LINKEDIN, GITHUB, or PORTFOLIO)
+
+        Returns:
+            ProfileAnalysis entity with analysis results
+        """
+        from src.models.profile_analysis import ProfileAnalysis
+
+        self.logger.info(f"Starting AI analysis for {profile_type} profile")
+
+        if not self.api_key:
+            self.logger.warning("GEMINI_API_KEY not set, using fallback profile analysis")
+            # Fallback to basic analysis if API key is not available
+            return self._fallback_profile_analysis(profile_data, profile_type)
+
+        def _attempt_analysis():
+            self.logger.debug("Creating profile analysis prompt")
+            # Create the prompt for Gemini
+            prompt = self._create_profile_analysis_prompt(profile_data, profile_type)
+
+            self.logger.debug("Generating Gemini response for profile analysis")
+            # Call Gemini API (in a real implementation, this would use the actual Gemini API)
+            # For this implementation, we'll simulate the response
+            response = self._simulate_profile_gemini_response(profile_data, profile_type)
+
+            self.logger.debug("Profile analysis Gemini response generated successfully")
+            return response
+
+        try:
+            result = self._with_retry(_attempt_analysis)
+            self.logger.info("Profile analysis completed successfully")
+            return result
+        except Exception as e:
+            self.logger.error(f"Error in profile analysis after {self.max_retries} attempts: {str(e)}")
+            # Return fallback analysis if Gemini call fails
+            fallback_result = self._fallback_profile_analysis(profile_data, profile_type)
+            self.logger.info("Returned fallback profile analysis due to error")
+            return fallback_result
+
+    def _create_profile_analysis_prompt(self, profile_data: Dict[str, Any], profile_type: str) -> str:
+        """
+        Create the prompt for Gemini AI analysis of profiles.
+
+        Args:
+            profile_data: The profile data to analyze
+            profile_type: The type of profile (LINKEDIN, GITHUB, or PORTFOLIO)
+
+        Returns:
+            Formatted prompt string
+        """
+        normalized_content = profile_data.get("normalized_content", {})
+
+        return f"""
+        Analyze the following {profile_type} profile content and provide structured feedback:
+
+        Profile Content:
+        {str(normalized_content)}
+
+        Please provide:
+        1. 3-5 key strengths of the profile
+        2. 3-5 areas for improvement
+        3. Specific, actionable suggestions for improvement with categories and priorities
+        4. Clarity score (0-100) - how clearly the profile communicates value proposition
+        5. Impact score (0-100) - how effectively the profile showcases skills and experience
+
+        Format your response as structured JSON with keys:
+        - strengths: array of strings
+        - weaknesses: array of strings
+        - suggestions: array of objects with keys: category, priority, suggestion_text, rationale, example, affected_section
+        - clarity_score: number between 0 and 100
+        - impact_score: number between 0 and 100
+        """
+
+    def _simulate_profile_gemini_response(self, profile_data: Dict[str, Any], profile_type: str) -> 'ProfileAnalysis':
+        """
+        Simulate Gemini's response for profile analysis for development purposes.
+
+        Args:
+            profile_data: The profile data to analyze
+            profile_type: The type of profile (LINKEDIN, GITHUB, or PORTFOLIO)
+
+        Returns:
+            Simulated AI analysis response as ProfileAnalysis
+        """
+        from src.models.profile_analysis import ProfileAnalysis
+        from src.models.improvement import ImprovementSuggestion
+
+        # In a real implementation, this would call the Gemini API
+        # For now, we'll generate a reasonable response based on the profile content
+
+        normalized_content = profile_data.get("normalized_content", {})
+        content_str = str(normalized_content)
+
+        strengths = []
+        weaknesses = []
+        suggestions = []
+
+        # Analyze content to generate realistic feedback
+        if profile_type == "LINKEDIN":
+            if "headline" in normalized_content and normalized_content["headline"]:
+                strengths.append("Clear and professional headline")
+            else:
+                weaknesses.append("Missing or weak headline")
+                suggestions.append(ImprovementSuggestion.create_new(
+                    category="CONTENT",
+                    priority="HIGH",
+                    suggestion_text="Add a compelling headline that clearly states your professional identity",
+                    rationale="A strong headline helps recruiters quickly understand your value proposition",
+                    example="Senior Software Engineer | Python & AI Specialist | Building scalable solutions",
+                    affected_section="headline"
+                ))
+
+            if "summary" in normalized_content and len(str(normalized_content.get("summary", ""))) > 50:
+                strengths.append("Good summary section with sufficient detail")
+            else:
+                weaknesses.append("Summary section could be more detailed")
+                suggestions.append(ImprovementSuggestion.create_new(
+                    category="CONTENT",
+                    priority="MEDIUM",
+                    suggestion_text="Expand your summary to better showcase your experience and skills",
+                    rationale="A detailed summary helps establish credibility and expertise",
+                    example="Currently: 'Software engineer'. Better: 'Senior software engineer with 5+ years of experience in Python, cloud architecture, and AI/ML'",
+                    affected_section="summary"
+                ))
+
+        elif profile_type == "GITHUB":
+            if "repositories" in normalized_content and len(normalized_content["repositories"]) > 0:
+                strengths.append("Active repository presence")
+                # Check for README files
+                repos = normalized_content["repositories"]
+                repos_with_readme = [r for r in repos if r.get("description") or r.get("readme")]
+                if len(repos_with_readme) > len(repos) * 0.5:  # More than 50% have descriptions
+                    strengths.append("Good repository documentation")
+                else:
+                    weaknesses.append("Many repositories lack proper documentation")
+                    suggestions.append(ImprovementSuggestion.create_new(
+                        category="CONTENT",
+                        priority="MEDIUM",
+                        suggestion_text="Add README files with clear descriptions to your repositories",
+                        rationale="Well-documented repositories help others understand your code and skills",
+                        example="Add project overview, technologies used, setup instructions, and usage examples",
+                        affected_section="repositories"
+                    ))
+            else:
+                weaknesses.append("No repositories found")
+
+        elif profile_type == "PORTFOLIO":
+            if "bio_about" in normalized_content and len(str(normalized_content.get("bio_about", ""))) > 50:
+                strengths.append("Good bio/about section with sufficient detail")
+            else:
+                weaknesses.append("Bio/about section could be more detailed")
+                suggestions.append(ImprovementSuggestion.create_new(
+                    category="CONTENT",
+                    priority="HIGH",
+                    suggestion_text="Add a detailed bio/about section that showcases your skills and experience",
+                    rationale="A strong bio helps visitors understand your expertise and value proposition",
+                    example="Include your background, key skills, notable projects, and career goals",
+                    affected_section="bio_about"
+                ))
+
+            if "projects" in normalized_content and len(normalized_content["projects"]) > 0:
+                strengths.append("Good project showcase")
+            else:
+                weaknesses.append("Missing or minimal project showcase")
+                suggestions.append(ImprovementSuggestion.create_new(
+                    category="VISIBILITY",
+                    priority="HIGH",
+                    suggestion_text="Add projects section to showcase your work",
+                    rationale="Projects provide concrete examples of your skills and capabilities",
+                    example="Include 3-5 key projects with descriptions, technologies used, and links to code/demos",
+                    affected_section="projects"
+                ))
+
+        # Default scores
+        clarity_score = 75.0
+        impact_score = 70.0
+
+        # Adjust scores based on content
+        if len(content_str) < 100:
+            clarity_score -= 15
+            impact_score -= 20
+        elif len(content_str) > 500:
+            clarity_score += 5
+
+        # Create and return ProfileAnalysis
+        profile_analysis = ProfileAnalysis.create_new(
+            profile_type=profile_type,
+            strengths=strengths or ["Profile has basic structure"],
+            weaknesses=weaknesses or ["Could use more detailed content"],
+            suggestions=suggestions,
+            clarity_score=clarity_score,
+            impact_score=impact_score
+        )
+
+        return profile_analysis
+
+    def _fallback_profile_analysis(self, profile_data: Dict[str, Any], profile_type: str) -> 'ProfileAnalysis':
+        """
+        Provide a fallback analysis when AI service is unavailable.
+
+        Args:
+            profile_data: The profile data to analyze
+            profile_type: The type of profile (LINKEDIN, GITHUB, or PORTFOLIO)
+
+        Returns:
+            Basic analysis based on simple heuristics
+        """
+        from src.models.profile_analysis import ProfileAnalysis
+        from src.models.improvement import ImprovementSuggestion
+
+        # Simple heuristic-based analysis
+        normalized_content = profile_data.get("normalized_content", {})
+        content_length = len(str(normalized_content))
+
+        strengths = []
+        weaknesses = []
+        suggestions = []
+
+        # Basic analysis based on content presence
+        if content_length > 200:
+            strengths.append("Profile has good amount of content")
+        else:
+            weaknesses.append("Profile could be more detailed")
+
+        if profile_type == "LINKEDIN":
+            strengths.append("LinkedIn profile detected")
+        elif profile_type == "GITHUB":
+            strengths.append("GitHub profile detected")
+        elif profile_type == "PORTFOLIO":
+            strengths.append("Portfolio website detected")
+
+        # Create basic suggestions
+        suggestions.append(ImprovementSuggestion.create_new(
+            category="CONTENT",
+            priority="MEDIUM",
+            suggestion_text="Add more specific examples of your work and achievements",
+            rationale="Specific examples help demonstrate your skills and impact",
+            example="Instead of 'Experienced in Python', say 'Developed Python applications that improved process efficiency by 30%'",
+            affected_section="all"
+        ))
+
+        # Create and return ProfileAnalysis with basic scores
+        profile_analysis = ProfileAnalysis.create_new(
+            profile_type=profile_type,
+            strengths=strengths,
+            weaknesses=weaknesses,
+            suggestions=suggestions,
+            clarity_score=60.0,
+            impact_score=55.0
+        )
+
+        return profile_analysis

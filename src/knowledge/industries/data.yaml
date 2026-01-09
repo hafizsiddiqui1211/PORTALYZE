@@ -1,0 +1,158 @@
+# Data Role Archetypes
+
+archetypes:
+  - title: "Data Scientist"
+    industry: "Data"
+    description: "Analyzes complex data to extract insights and build predictive models"
+    required_skills:
+      - "Statistical analysis"
+      - "Machine learning"
+      - "Data visualization"
+      - "Hypothesis testing"
+    preferred_skills:
+      - "Advanced statistics"
+      - "Deep learning"
+      - "Big data tools"
+      - "Business acumen"
+    technologies:
+      - "Python"
+      - "R"
+      - "SQL"
+      - "Jupyter"
+      - "Tableau"
+    responsibilities:
+      - "Conduct statistical analysis"
+      - "Build predictive models"
+      - "Create data visualizations"
+      - "Communicate insights"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Data cleaning", "Basic analysis", "Simple models"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Complex analysis", "Advanced modeling", "Stakeholder communication"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["Strategic analysis", "Team leadership", "Business strategy"]
+    role_signals:
+      analytical_depth: "Complex problem solving"
+      business_acumen: "Strategic insight generation"
+      communication: "Effective insight presentation"
+
+  - title: "Data Engineer"
+    industry: "Data"
+    description: "Builds and maintains data infrastructure and pipelines"
+    required_skills:
+      - "Database systems"
+      - "ETL processes"
+      - "Data modeling"
+      - "SQL"
+    preferred_skills:
+      - "Big data platforms"
+      - "Cloud data services"
+      - "Streaming systems"
+      - "Data quality"
+    technologies:
+      - "Python"
+      - "SQL"
+      - "Apache Spark"
+      - "Airflow"
+      - "AWS/GCP/Azure"
+    responsibilities:
+      - "Design data pipelines"
+      - "Optimize data storage"
+      - "Ensure data quality"
+      - "Maintain data infrastructure"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Implement basic pipelines", "Simple data transformations", "Basic testing"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Design pipeline architecture", "Performance optimization", "Data quality assurance"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["Data architecture", "Strategic data initiatives", "Team leadership"]
+    role_signals:
+      system_design: "Scalable data infrastructure"
+      performance: "Efficient data processing"
+      reliability: "Robust data systems"
+
+  - title: "Data Analyst"
+    industry: "Data"
+    description: "Analyzes data to provide business insights and recommendations"
+    required_skills:
+      - "Data analysis"
+      - "SQL"
+      - "Data visualization"
+      - "Statistical methods"
+    preferred_skills:
+      - "Advanced analytics"
+      - "Business intelligence"
+      - "Statistical software"
+      - "Domain expertise"
+    technologies:
+      - "SQL"
+      - "Excel"
+      - "Tableau"
+      - "Power BI"
+      - "Python/R"
+    responsibilities:
+      - "Analyze business data"
+      - "Create reports and dashboards"
+      - "Identify trends and patterns"
+      - "Present findings to stakeholders"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Basic data analysis", "Simple reports", "Data cleaning"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Complex analysis", "Advanced dashboards", "Stakeholder presentations"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["Strategic analysis", "Team leadership", "Business strategy"]
+    role_signals:
+      analytical_depth: "Meaningful business insights"
+      communication: "Clear, actionable recommendations"
+      business_impact: "Measurable business improvements"
+
+  - title: "Machine Learning Engineer"
+    industry: "Data"
+    description: "Designs, builds, and deploys machine learning models and systems"
+    required_skills:
+      - "Machine learning algorithms"
+      - "Python programming"
+      - "Data preprocessing"
+      - "Model evaluation"
+    preferred_skills:
+      - "Deep learning frameworks"
+      - "MLOps tools"
+      - "Cloud ML platforms"
+      - "Statistical analysis"
+    technologies:
+      - "TensorFlow"
+      - "PyTorch"
+      - "Scikit-learn"
+      - "Pandas"
+      - "NumPy"
+    responsibilities:
+      - "Develop ML models for business problems"
+      - "Optimize model performance and accuracy"
+      - "Deploy models to production"
+      - "Monitor model performance"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Implement ML models", "Data preprocessing", "Basic model evaluation"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Design ML systems", "Model optimization", "MLOps implementation"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["ML architecture", "Strategic ML initiatives", "Team leadership"]
+    role_signals:
+      technical_depth: "Advanced ML algorithms and systems"
+      innovation: "Novel applications and improvements"
+      business_impact: "Measurable outcomes from ML solutions"

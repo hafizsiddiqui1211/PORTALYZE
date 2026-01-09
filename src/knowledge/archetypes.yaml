@@ -1,0 +1,38 @@
+# Base role archetype schema definition
+# This file defines the structure and common fields for role archetypes
+
+archetypes:
+  - title: "Software Engineer"
+    industry: "Software Engineering"
+    description: "Develops, tests, and maintains software applications"
+    required_skills:
+      - "Programming fundamentals"
+      - "Software design patterns"
+      - "Version control"
+    preferred_skills:
+      - "Testing frameworks"
+      - "CI/CD pipelines"
+      - "Cloud platforms"
+    technologies:
+      - "Python"
+      - "JavaScript"
+      - "Java"
+      - "Docker"
+    responsibilities:
+      - "Write clean, maintainable code"
+      - "Collaborate with team members"
+      - "Participate in code reviews"
+    seniority_requirements:
+      junior:
+        years_experience: 0-2
+        responsibilities: ["Implement features", "Fix bugs", "Write tests"]
+      mid:
+        years_experience: 3-5
+        responsibilities: ["Design components", "Lead small projects", "Mentor junior developers"]
+      senior:
+        years_experience: 6+
+        responsibilities: ["System architecture", "Technical leadership", "Strategic planning"]
+    role_signals:
+      technical_depth: "Complex problem solving"
+      collaboration: "Team work and communication"
+      innovation: "New solutions and improvements"

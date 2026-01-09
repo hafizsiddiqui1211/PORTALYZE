@@ -1,0 +1,158 @@
+# FinTech Role Archetypes
+
+archetypes:
+  - title: "FinTech Software Engineer"
+    industry: "FinTech"
+    description: "Develops financial technology applications with focus on security and compliance"
+    required_skills:
+      - "Financial domain knowledge"
+      - "Security best practices"
+      - "Regulatory compliance"
+      - "Payment systems"
+    preferred_skills:
+      - "Blockchain technology"
+      - "Risk management"
+      - "Financial modeling"
+      - "API security"
+    technologies:
+      - "Python"
+      - "Java"
+      - "Node.js"
+      - "SQL"
+      - "Security frameworks"
+    responsibilities:
+      - "Develop secure financial applications"
+      - "Implement compliance requirements"
+      - "Ensure data protection"
+      - "Maintain financial data integrity"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Implement secure features", "Follow compliance guidelines", "Basic testing"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Design secure systems", "Implement compliance measures", "Security audits"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["Security architecture", "Compliance strategy", "Team leadership"]
+    role_signals:
+      security_focus: "Security-first development approach"
+      compliance: "Regulatory adherence"
+      financial_acumen: "Understanding of financial systems"
+
+  - title: "Quantitative Developer"
+    industry: "FinTech"
+    description: "Develops quantitative models and algorithms for trading and risk management"
+    required_skills:
+      - "Mathematical modeling"
+      - "Statistical analysis"
+      - "Algorithm development"
+      - "Financial instruments"
+    preferred_skills:
+      - "High-frequency trading"
+      - "Risk modeling"
+      - "Derivatives pricing"
+      - "Performance optimization"
+    technologies:
+      - "C++"
+      - "Python"
+      - "R"
+      - "MATLAB"
+      - "SQL"
+    responsibilities:
+      - "Develop quantitative models"
+      - "Optimize algorithm performance"
+      - "Validate model accuracy"
+      - "Implement risk controls"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Implement models", "Basic validation", "Performance testing"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Design algorithms", "Model validation", "Risk analysis"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["Quantitative architecture", "Strategic modeling", "Team leadership"]
+    role_signals:
+      mathematical_depth: "Advanced quantitative methods"
+      performance: "High-performance algorithm design"
+      accuracy: "Precise model implementation"
+
+  - title: "Financial Data Analyst"
+    industry: "FinTech"
+    description: "Analyzes financial data to identify trends, risks, and opportunities"
+    required_skills:
+      - "Financial analysis"
+      - "Data analysis"
+      - "Risk assessment"
+      - "Statistical modeling"
+    preferred_skills:
+      - "Market analysis"
+      - "Predictive modeling"
+      - "Financial reporting"
+      - "Regulatory analysis"
+    technologies:
+      - "Python"
+      - "R"
+      - "SQL"
+      - "Excel"
+      - "Financial databases"
+    responsibilities:
+      - "Analyze market data"
+      - "Assess financial risks"
+      - "Create financial models"
+      - "Generate reports"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Basic data analysis", "Simple models", "Report generation"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Complex analysis", "Advanced modeling", "Risk assessment"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["Strategic analysis", "Model validation", "Team leadership"]
+    role_signals:
+      analytical_depth: "Sophisticated financial analysis"
+      risk_awareness: "Comprehensive risk evaluation"
+      market_insight: "Valuable market intelligence"
+
+  - title: "Blockchain Developer"
+    industry: "FinTech"
+    description: "Develops blockchain-based financial solutions and smart contracts"
+    required_skills:
+      - "Blockchain technology"
+      - "Smart contract development"
+      - "Cryptocurrency systems"
+      - "Security protocols"
+    preferred_skills:
+      - "DeFi protocols"
+      - "Consensus algorithms"
+      - "Cryptography"
+      - "Distributed systems"
+    technologies:
+      - "Solidity"
+      - "Ethereum"
+      - "Web3.js"
+      - "Python"
+      - "Security tools"
+    responsibilities:
+      - "Develop smart contracts"
+      - "Implement blockchain solutions"
+      - "Ensure transaction security"
+      - "Optimize network performance"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Implement basic contracts", "Testing", "Documentation"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Design contract architecture", "Security implementation", "Network optimization"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["Blockchain architecture", "Strategic development", "Team leadership"]
+    role_signals:
+      technical_depth: "Advanced blockchain systems"
+      security_focus: "Secure transaction handling"
+      innovation: "Cutting-edge financial solutions"

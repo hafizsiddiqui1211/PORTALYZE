@@ -1,0 +1,156 @@
+# EdTech Role Archetypes
+
+archetypes:
+  - title: "EdTech Software Engineer"
+    industry: "EdTech"
+    description: "Develops educational technology applications focused on learning effectiveness"
+    required_skills:
+      - "Educational domain knowledge"
+      - "User experience design"
+      - "Learning management systems"
+      - "Accessibility standards"
+    preferred_skills:
+      - "Gamification"
+      - "Learning analytics"
+      - "Educational research"
+      - "Adaptive learning"
+    technologies:
+      - "JavaScript"
+      - "Python"
+      - "React"
+      - "Learning APIs"
+      - "Accessibility tools"
+    responsibilities:
+      - "Develop educational applications"
+      - "Implement learning features"
+      - "Ensure accessibility compliance"
+      - "Optimize learning effectiveness"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Implement learning features", "Basic accessibility", "User testing"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Design learning systems", "Accessibility implementation", "Learning analytics"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["Learning architecture", "Educational strategy", "Team leadership"]
+    role_signals:
+      learning_focus: "Learning effectiveness first"
+      accessibility: "Inclusive design approach"
+      education_acumen: "Understanding of learning principles"
+
+  - title: "Learning Experience Designer"
+    industry: "EdTech"
+    description: "Designs and develops engaging learning experiences and curricula"
+    required_skills:
+      - "Instructional design"
+      - "Curriculum development"
+      - "Learning assessment"
+      - "Educational technology"
+    preferred_skills:
+      - "Gamification design"
+      - "Adaptive learning"
+      - "Learning analytics"
+      - "Educational research"
+    technologies:
+      - "LMS platforms"
+      - "Authoring tools"
+      - "Assessment tools"
+      - "Analytics platforms"
+    responsibilities:
+      - "Design learning experiences"
+      - "Develop curriculum content"
+      - "Create assessments"
+      - "Analyze learning outcomes"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Content creation", "Basic assessment design", "Learning material development"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Curriculum design", "Advanced assessments", "Learning analytics"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["Learning strategy", "Educational architecture", "Team leadership"]
+    role_signals:
+      pedagogical_depth: "Sound educational principles"
+      engagement: "Highly engaging experiences"
+      effectiveness: "Measurable learning outcomes"
+
+  - title: "EdTech Product Manager"
+    industry: "EdTech"
+    description: "Manages educational technology products with focus on learning outcomes"
+    required_skills:
+      - "Product management"
+      - "Educational domain knowledge"
+      - "User research"
+      - "Learning metrics"
+    preferred_skills:
+      - "Educational research"
+      - "Learning analytics"
+      - "Stakeholder management"
+      - "Educational policy"
+    technologies:
+      - "Product management tools"
+      - "Analytics platforms"
+      - "Research tools"
+      - "Educational standards"
+    responsibilities:
+      - "Define product strategy"
+      - "Gather user requirements"
+      - "Measure learning impact"
+      - "Coordinate development teams"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Feature planning", "User research", "Basic metrics"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Product roadmap", "Stakeholder management", "Learning metrics"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["Product strategy", "Educational vision", "Cross-functional leadership"]
+    role_signals:
+      educational_focus: "Learning outcomes first"
+      stakeholder_management: "Effective multi-stakeholder coordination"
+      impact_measurement: "Quantified learning improvements"
+
+  - title: "Educational Data Analyst"
+    industry: "EdTech"
+    description: "Analyzes learning data to improve educational outcomes and experiences"
+    required_skills:
+      - "Data analysis"
+      - "Educational research"
+      - "Learning metrics"
+      - "Statistical analysis"
+    preferred_skills:
+      - "Learning analytics"
+      - "Predictive modeling"
+      - "Educational assessment"
+      - "Research methodology"
+    technologies:
+      - "Python"
+      - "R"
+      - "SQL"
+      - "Learning analytics tools"
+      - "Statistical software"
+    responsibilities:
+      - "Analyze learning data"
+      - "Identify learning patterns"
+      - "Assess educational effectiveness"
+      - "Recommend improvements"
+    seniority_requirements:
+      junior:
+        years_experience: "0-2"
+        responsibilities: ["Basic data analysis", "Simple metrics", "Pattern identification"]
+      mid:
+        years_experience: "3-5"
+        responsibilities: ["Complex analysis", "Advanced metrics", "Learning assessment"]
+      senior:
+        years_experience: "6+"
+        responsibilities: ["Analytics strategy", "Research leadership", "Impact evaluation"]
+    role_signals:
+      analytical_depth: "Sophisticated learning analysis"
+      educational_impact: "Measurable learning improvements"
+      research_oriented: "Evidence-based recommendations"

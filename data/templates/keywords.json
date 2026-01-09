@@ -1,0 +1,69 @@
+{
+  "software_engineering": {
+    "programming_languages": [
+      "Python", "JavaScript", "TypeScript", "Java", "C++", "C#", "Go", "Rust", "Ruby", "PHP", "Swift", "Kotlin"
+    ],
+    "web_technologies": [
+      "React", "Angular", "Vue", "Node.js", "Express", "Django", "Flask", "Spring", "FastAPI", "GraphQL", "REST", "API"
+    ],
+    "databases": [
+      "SQL", "PostgreSQL", "MySQL", "MongoDB", "Redis", "Elasticsearch", "DynamoDB", "Cassandra"
+    ],
+    "cloud_platforms": [
+      "AWS", "Azure", "GCP", "EC2", "S3", "Lambda", "IAM", "VPC", "EKS", "AKS", "GKE"
+    ],
+    "devops_tools": [
+      "Docker", "Kubernetes", "Jenkins", "GitLab CI", "CircleCI", "Terraform", "Ansible", "Chef", "Puppet", "CI/CD"
+    ],
+    "tools": [
+      "Git", "Linux", "Jira", "Confluence", "Agile", "Scrum", "TDD", "BDD", "Microservices"
+    ]
+  },
+  "data_science": {
+    "programming_languages": [
+      "Python", "R", "SQL", "SAS", "Scala", "Julia"
+    ],
+    "libraries_frameworks": [
+      "pandas", "numpy", "scikit-learn", "TensorFlow", "PyTorch", "Keras", "matplotlib", "seaborn", "statsmodels", "plotly"
+    ],
+    "concepts": [
+      "Machine Learning", "Deep Learning", "Statistical Analysis", "Data Mining", "NLP", "Computer Vision", "Big Data", "Hadoop", "Spark"
+    ],
+    "tools": [
+      "Jupyter", "RStudio", "Tableau", "PowerBI", "Excel", "SAS", "SPSS", "Hive", "Pig"
+    ]
+  },
+  "frontend_development": {
+    "languages_frameworks": [
+      "JavaScript", "TypeScript", "HTML", "CSS", "React", "Vue", "Angular", "Svelte"
+    ],
+    "libraries_tools": [
+      "jQuery", "Webpack", "Babel", "Sass", "Less", "Bootstrap", "Tailwind CSS", "Next.js", "Gatsby", "Storybook"
+    ],
+    "concepts": [
+      "Responsive Design", "CSS Grid", "Flexbox", "REST APIs", "GraphQL", "PWA", "Web Accessibility", "Cross-browser Compatibility", "Performance Optimization"
+    ]
+  },
+  "devops_engineering": {
+    "tools_technologies": [
+      "Docker", "Kubernetes", "Jenkins", "GitLab CI", "CircleCI", "Terraform", "Ansible", "Chef", "Puppet"
+    ],
+    "cloud_platforms": [
+      "AWS", "Azure", "GCP", "EC2", "S3", "Lambda", "IAM", "VPC", "EKS", "AKS", "GKE"
+    ],
+    "concepts": [
+      "CI/CD", "Infrastructure as Code", "Monitoring", "Logging", "Security", "Performance", "Scalability", "Automation", "Configuration Management", "Container Orchestration"
+    ]
+  },
+  "product_management": {
+    "methodologies": [
+      "Agile", "Scrum", "Kanban", "Lean", "Design Thinking", "User Experience", "User Research", "Product Strategy", "Roadmapping"
+    ],
+    "tools": [
+      "Jira", "Confluence", "Aha!", "ProductPlan", "Trello", "Asana", "Figma", "Miro", "Mural", "Roadmunk"
+    ],
+    "skills": [
+      "Leadership", "Communication", "Data Analysis", "Market Research", "Competitive Analysis", "Stakeholder Management", "Requirements Gathering"
+    ]
+  }
+}
