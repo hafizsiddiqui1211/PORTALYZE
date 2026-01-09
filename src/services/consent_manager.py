@@ -2,7 +2,7 @@
 
 import uuid
 from datetime import datetime, timedelta
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, Tuple, Any
 import logging
 import threading
 import time
@@ -259,6 +259,10 @@ class ConsentManager:
             security_findings['consent_handling_security']['recommendations'] +
             security_findings['data_storage_security']['recommendations']
         )
+
+        # Ensure recommendations list exists
+        if 'recommendations' not in security_findings:
+            security_findings['recommendations'] = []
 
         # Set risk level based on findings
         if any("encrypted" in rec.lower() for rec in all_recommendations):
