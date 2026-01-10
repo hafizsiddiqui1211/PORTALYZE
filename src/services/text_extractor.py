@@ -58,6 +58,8 @@ class TextExtractor:
         """
         try:
             self.logger.debug(f"Starting PDF text extraction from: {pdf_path}")
+            # Ensure the path is properly encoded and accessible
+            pdf_path = str(Path(pdf_path).resolve())
             doc = fitz.open(pdf_path)
 
             # Check if the PDF is password-protected
@@ -78,13 +80,14 @@ class TextExtractor:
             if not result:
                 self.logger.warning(f"No text extracted using standard method from PDF: {pdf_path}, trying alternative methods")
 
+                alt_text = ""
                 # Try different text extraction methods
                 for page_num, page in enumerate(doc):
                     # Try different text extraction options
                     try:
                         # Method 1: Extract text with different parameters
                         page_text = page.get_text("text", flags=fitz.TEXT_PRESERVE_WHITESPACE)
-                        text += page_text
+                        alt_text += page_text
                     except:
                         pass
 
@@ -93,11 +96,11 @@ class TextExtractor:
                         blocks = page.get_text_blocks()
                         for block in blocks:
                             if len(block) >= 4:  # Ensure block has text at index 4
-                                text += block[4] + "\n"
+                                alt_text += block[4] + "\n"
                     except:
                         pass
 
-            result = text.strip()
+                result = alt_text.strip()
 
             # If still no text extracted, try OCR as a last resort
             if not result:
@@ -109,6 +112,7 @@ class TextExtractor:
                     import io
                     import pytesseract
 
+                    ocr_result = ""
                     # Extract each page as an image and perform OCR
                     for page_num in range(len(doc)):
                         page = doc[page_num]
@@ -120,9 +124,9 @@ class TextExtractor:
 
                         # Perform OCR on the image
                         ocr_text = pytesseract.image_to_string(img)
-                        result += ocr_text + "\n"
+                        ocr_result += ocr_text + "\n"
 
-                    result = result.strip()
+                    result = ocr_result.strip()
                     self.logger.info(f"OCR completed for PDF: {pdf_path}")
                 except ImportError:
                     self.logger.warning(f"OCR libraries not available. Install 'Pillow' and 'pytesseract' for OCR support.")

@@ -101,7 +101,9 @@
       "Bash(git commit -m \"feat\\(profile-analyzer\\): fix keyword suggestions and add minimum relevance filtering\n\n- Add extract method as alias to extract_profile in all extractor classes \\(LinkedIn, GitHub, Portfolio\\)\n- Implement minimum relevance score threshold \\(0.2\\) for keyword suggestions\n- Enhance LinkedIn extractor to handle privacy/accessibility issues gracefully\n- Update UI components to properly display relevant keyword suggestions\n- Add nest_asyncio dependency to requirements.txt to resolve import errors in role recommendations\")",
       "Bash(python -m py_compile \"E:\\\\Paralyzer\\\\src\\\\services\\\\consent_manager.py\")",
       "Bash(python -m py_compile \"E:\\\\Paralyzer\\\\src\\\\services\\\\signal_aggregator.py\")",
-      "Bash(python -m py_compile \"E:\\\\Paralyzer\\\\src\\\\main.py\")"
+      "Bash(python -m py_compile \"E:\\\\Paralyzer\\\\src\\\\main.py\")",
+      "Bash(python -m py_compile \"E:\\\\Paralyzer\\\\src\\\\services\\\\text_extractor.py\")",
+      "Bash(python -m py_compile \"E:\\\\Paralyzer\\\\src\\\\services\\\\file_processor.py\")"
     ]
   }
 }

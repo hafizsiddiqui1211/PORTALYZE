@@ -61,6 +61,7 @@ class FileProcessor:
         try:
             import tempfile
             # Create a temporary file with the correct extension
+            # Use a safer approach for filenames with special characters
             with tempfile.NamedTemporaryFile(delete=False, suffix=file_extension) as tmp:
                 tmp.write(file_content)
                 temp_file_path = tmp.name
@@ -86,7 +87,10 @@ class FileProcessor:
         try:
             from src.services.text_extractor import TextExtractor
             text_extractor = TextExtractor()
-            extracted_text = text_extractor.extract_text_from_file(temp_file_path)
+
+            # Ensure the temp file path is properly resolved
+            resolved_temp_path = str(Path(temp_file_path).resolve())
+            extracted_text = text_extractor.extract_text_from_file(resolved_temp_path)
 
             # Check if text extraction was successful
             if not extracted_text.strip():
