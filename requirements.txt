@@ -19,4 +19,5 @@ pandas
 numpy
 Pillow
 pytesseract
+pdfplumber
 nest_asyncio
